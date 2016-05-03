@@ -38,13 +38,13 @@ namespace Rubick
             return true;
         }
 
-        public static long Get3by3Determinant(sbyte[,] matrix)
+        public static int Get3by3Determinant(sbyte[,] matrix)
         {
             if (matrix == null)
                 throw new ArgumentNullException("matrix", "Argument cannot be null.");
             if (matrix.GetLength(0) != 3 || matrix.GetLength(1) != 3)
                 throw new ArgumentException("Array must have size of 3x3", "matrix");
-            long determinant = 0;
+            int determinant = 0;
             for (byte i = 0; i < 3; ++i)
             {
                 for (byte j = 0; j < 3; ++j)
