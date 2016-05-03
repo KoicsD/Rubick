@@ -4,38 +4,29 @@ namespace Rubick
 {
     public static class Validator
     {
-        public static bool IsValidRotation(sbyte[,] matrix, out string message)
+        public enum RotationValidity { Valid, Mirrored, Singular, NotSixZeros, ElementOutOfRange, InvalidSize }
+
+        public static RotationValidity ValidateRotation(sbyte[,] matrix)
         {
             if (matrix == null)
                 throw new ArgumentNullException("matrix", "Argument cannot be null.");
             if (matrix.GetLength(0) != 3 || matrix.GetLength(1) != 3)
-            {
-                message = "Matrix must have size of 3x3";
-                return false;
-            }
+                return RotationValidity.InvalidSize;
             byte numberOfNonzeros = 0;
             foreach (sbyte element in matrix)
             {
                 if (element > 1 || element < -1)
-                {
-                    message = "None of the elements in matrix can be other than 0, 1 or -1";
-                    return false;
-                }
+                    return RotationValidity.ElementOutOfRange;
                 if (element != 0)
                     ++numberOfNonzeros;
             }
             if (numberOfNonzeros != 3)
-            {
-                message = "Matrix must have exactly 3 non-zero elements.";
-                return false;
-            }
+                return RotationValidity.NotSixZeros;
+            if (Get3by3Determinant(matrix) == 0)
+                return RotationValidity.Singular;
             if (Get3by3Determinant(matrix) != 1)
-            {
-                message = "Matrix must have determinant value of 1.";
-                return false;
-            }
-            message = "Matrix is correct.";
-            return true;
+                return RotationValidity.Mirrored;
+            return RotationValidity.Valid;
         }
 
         public static int Get3by3Determinant(sbyte[,] matrix)

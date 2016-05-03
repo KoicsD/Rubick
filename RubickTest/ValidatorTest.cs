@@ -273,122 +273,113 @@ namespace RubickTest
         }
 
         [TestMethod]
-        public void IsValidRotation_onElementOutOfRange_returnsFalse()
+        public void ValidateRotation_recognizesElementOutOfRange()
         {
             sbyte[,] input = new sbyte[3, 3] {
                 { 1, 0, 0 },
                 { 0, 2, 0 },
                 { 0, 0, 3 }
             };
-            bool estimation = false;
-            string message;
-            bool output = Validator.IsValidRotation(input, out message);
+            Validator.RotationValidity estimation = Validator.RotationValidity.ElementOutOfRange;
+            Validator.RotationValidity output = Validator.ValidateRotation(input);
             Assert.AreEqual(estimation, output);
         }
 
         [TestMethod]
-        public void IsValidRotation_onWrongSize_returnsFalse()
+        public void ValidateRotation_recognizesWrongSize()
         {
             sbyte[,] input = new sbyte[2, 4] {
                 { 1, 2, 3, 4 },
                 { 5, 6, 7, 8 }
             };
-            bool estimation = false;
-            string message;
-            bool output = Validator.IsValidRotation(input, out message);
+            Validator.RotationValidity estimation = Validator.RotationValidity.InvalidSize;
+            Validator.RotationValidity output = Validator.ValidateRotation(input);
             Assert.AreEqual(estimation, output);
         }
 
         [TestMethod]
-        public void IsValidRotation_onTooManyNonzeroElements_returnsFalse()
+        public void ValidateRotation_recognizesTooManyNonzeroElements()
         {
             sbyte[,] input = new sbyte[3, 3] {
                 { 1, 0, 0 },
                 { 0, 1, -1 },
                 { 0, 0, 1 }
             };
-            bool estimation = false;
-            string message;
-            bool output = Validator.IsValidRotation(input, out message);
+            Validator.RotationValidity estimation = Validator.RotationValidity.NotSixZeros;
+            Validator.RotationValidity output = Validator.ValidateRotation(input);
             Assert.AreEqual(estimation, output);
         }
 
         [TestMethod]
-        public void IsValidRotation_onTooFewNonzeroElements_returnsFalse()
+        public void ValidateRotation_recognizesTooFewNonzeroElements()
         {
             sbyte[,] input = new sbyte[3, 3] {
                 { 1, 0, 0 },
                 { 0, -1, 0 },
                 { 0, 0, 0 }
             };
-            bool estimation = false;
-            string message;
-            bool output = Validator.IsValidRotation(input, out message);
+            Validator.RotationValidity estimation = Validator.RotationValidity.NotSixZeros;
+            Validator.RotationValidity output = Validator.ValidateRotation(input);
             Assert.AreEqual(estimation, output);
         }
 
         [TestMethod]
-        public void IsValidRotation_onMoreThanOneNonzeroInOneCol_returnsFalse()
+        public void ValidateRotation_recognizesMoreThanOneNonzeroInOneCol()
         {
             sbyte[,] input = new sbyte[3, 3] {
                 { 1, 0, 0 },
                 { 0, 1, 0 },
                 { 0, 1, 0 }
             };
-            bool estimation = false;
-            string message;
-            bool output = Validator.IsValidRotation(input, out message);
+            Validator.RotationValidity estimation = Validator.RotationValidity.Singular;
+            Validator.RotationValidity output = Validator.ValidateRotation(input);
             Assert.AreEqual(estimation, output);
         }
 
         [TestMethod]
-        public void IsValidRotation_onMoreThanOneNonzeroInOneRow_returnsFalse()
+        public void ValidateRotation_recognizesMoreThanOneNonzeroInOneRow()
         {
             sbyte[,] input = new sbyte[3, 3] {
                 { 1, 0, 0 },
                 { 0, 1, 1 },
                 { 0, 0, 0 }
             };
-            bool estimation = false;
-            string message;
-            bool output = Validator.IsValidRotation(input, out message);
+            Validator.RotationValidity estimation = Validator.RotationValidity.Singular;
+            Validator.RotationValidity output = Validator.ValidateRotation(input);
             Assert.AreEqual(estimation, output);
         }
 
         [TestMethod]
-        public void IsValidRotation_onDeterminantMinusOne_returnsFalse()
+        public void ValidateRotation_recognizesDeterminantMinusOne()
         {
             sbyte[,] input = new sbyte[3, 3] {
                 { 1, 0, 0 },
                 { 0, 0, 1 },
                 { 0, 1, 0 }
             };
-            bool estimation = false;
-            string message;
-            bool output = Validator.IsValidRotation(input, out message);
+            Validator.RotationValidity estimation = Validator.RotationValidity.Mirrored;
+            Validator.RotationValidity output = Validator.ValidateRotation(input);
             Assert.AreEqual(estimation, output);
         }
 
         [TestMethod]
-        public void IsValidRotation_onValidPerpendicularRotation_returnsTrue()
+        public void ValidateRotation_recognizesValidPerpendicularRotation()
         {
             sbyte[,] input = new sbyte[3, 3] {
                 { 1, 0, 0 },
                 { 0, 0, -1 },
                 { 0, 1, 0 }
             };
-            bool estimation = true;
-            string message;
-            bool output = Validator.IsValidRotation(input, out message);
+            Validator.RotationValidity estimation = Validator.RotationValidity.Valid;
+            Validator.RotationValidity output = Validator.ValidateRotation(input);
             Assert.AreEqual(estimation, output);
         }
 
         [TestMethod, ExpectedException(typeof(ArgumentNullException))]
-        public void IsValidRotation_onNull_throwsArgumentNullException()
+        public void ValidateRotation_onNull_throwsArgumentNullException()
         {
             sbyte[,] input = null;
-            string message;
-            Validator.IsValidRotation(input, out message);
+            Validator.ValidateRotation(input);
         }
     }
 }
