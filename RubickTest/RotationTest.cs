@@ -45,6 +45,7 @@ namespace RubickTest
 
         // Tests for Binary Constructor
 
+        // -1 should be parsed as undefined:
         [TestMethod]
         public void BinaryConstructor_parsesMinusOne_asUndefinedRotation()  // -1 is the only-ones sample
         {
@@ -78,7 +79,7 @@ namespace RubickTest
         [TestMethod, ExpectedException(typeof(FormatException))]
         public void BinaryConstructor_onOneLeftshiftTwentySix_throwsFormatException()
         {
-            int sample = 1 << 26;  // value: 2 ^ 18
+            int sample = 1 << 26;  // value: 2 ^ 26
             Rotation rotation = new Rotation(sample);
         }
 
@@ -123,6 +124,7 @@ namespace RubickTest
             Rotation rotation = new Rotation(sample);
         }
 
+        // Ensuring both valid and undefined Rotations can be restored after binarization:
         [TestMethod]
         public void BinaryConstructor_onSampleOfValidRotation_ObjectRestoredRetrievesMatrix()
         {

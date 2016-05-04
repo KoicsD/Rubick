@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="RubickTest.RotationTest.MatrixConstructor_onInvalidMatrix_throwsArgumentOutOfRangeException" /><Add Test="RubickTest.RotationTest.MatrixConstructor_onValidMatrix_ObjectConstructedRetrievesMatrix" /><Add Test="RubickTest.RotationTest.MatrixConstructor_onNull_constructsUndefinedRotation" /></Playlist>

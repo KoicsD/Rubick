@@ -8,6 +8,9 @@ namespace RubickTest
     [TestClass]
     public class ValidatorTest
     {
+        // Testing determinant-calculator
+
+        // Some trivial examples:
         [TestMethod]
         public void Get3by3Determinant_onZeros_returnsZero()
         {
@@ -47,6 +50,7 @@ namespace RubickTest
             Assert.AreEqual(estimation, output);
         }
 
+        //Determinant is definitely zero if one column or row is zero:
         [TestMethod]
         public void Get3by3Determinant_onOneColZero_returnsZero()
         {
@@ -73,6 +77,7 @@ namespace RubickTest
             Assert.AreEqual(estimation, output);
         }
 
+        // Or if two columns or two rows are equal:
         [TestMethod]
         public void Get3by3Determinant_onTwoColsEqual_returnsZero()
         {
@@ -99,6 +104,8 @@ namespace RubickTest
             Assert.AreEqual(estimation, output);
         }
 
+        // Only ones, only in cross-diagonal results minus one,
+        // since it is based on an odd permutation:
         [TestMethod]
         public void Get3by3Determinant_onCrossdiagOnes_returnsMinusOne()
         {
@@ -112,6 +119,9 @@ namespace RubickTest
             Assert.AreEqual(estimation, output);
         }
 
+        // Multiplying nxn matrix by a scalar,
+        // determinant is proportional to the scalar to power n
+        // (in our example, n == 3):
         [TestMethod]
         public void Get3by3Determinant_onTwiceEye_returnsTwoCubed()
         {
@@ -242,6 +252,7 @@ namespace RubickTest
             Assert.AreEqual(estimation, output);
         }
 
+        // A bit more general example:
         [TestMethod]
         public void Get3by3Determinant_EasySample()
         {
@@ -255,6 +266,7 @@ namespace RubickTest
             Assert.AreEqual(estimation, output);
         }
 
+        // Testing exceptions:
         [TestMethod, ExpectedException(typeof(ArgumentException))]
         public void Get3by3Determinant_onWrongSize_throwsArgumentException()
         {
@@ -272,6 +284,9 @@ namespace RubickTest
             Validator.Get3by3Determinant(input);
         }
 
+        // Testing Rotation-Validator generally
+
+        // 8 enum-values:
         [TestMethod]
         public void ValidateRotation_recognizesElementOutOfRange()
         {
@@ -375,6 +390,7 @@ namespace RubickTest
             Assert.AreEqual(estimation, output);
         }
 
+        // On null, exception:
         [TestMethod, ExpectedException(typeof(ArgumentNullException))]
         public void ValidateRotation_onNull_throwsArgumentNullException()
         {
